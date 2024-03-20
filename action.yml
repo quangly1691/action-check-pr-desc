@@ -12,12 +12,8 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name : Set up env variable
-      shell: bash
-      run : |
-        echo "GITHUB_WORKSPACE : $GITHUB_WORKSPACE"
-        echo "GITHUB_ACTION_PATH=${{github.action_path}}" >> $GITHUB_ENV
-
     - name: Run sh bash test
+      env:
+          PR_BODY: ${{ github.event.pull_request.body }}
       run: ${{github.action_path}}/check_pr.sh
       shell: bash
