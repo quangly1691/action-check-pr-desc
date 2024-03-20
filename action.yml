@@ -1,7 +1,23 @@
-echo "Working Dir"
-echo $GITHUB_WORKSPACE
-echo "End Working Dir"
+name: Action to check PR description
+description: Validate checklist in Pull Request body.
+author: QLY
+branding:
+  color: yellow
+  icon: git-pull-request
+inputs:
+  token:
+    description: The GitHub API token to use
+    default: ${{ github.token }}
+    required: false
+runs:
+  using: "composite"
+  steps:
+    - name : Set up env variable
+      shell: bash
+      run : |
+        echo "GITHUB_WORKSPACE : $GITHUB_WORKSPACE"
+        echo "GITHUB_ACTION_PATH=${{github.action_path}}" >> $GITHUB_ENV
 
-echo "Action path"
-echo $GITHUB_ACTION_PATH
-echo "End action path"
+    - name: Run sh bash test
+      run: ${{github.action_path}}/check_pr.sh
+      shell: bash
