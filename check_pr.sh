@@ -6,4 +6,5 @@ echo "Action path"
 echo $GITHUB_ACTION_PATH
 echo "End action path"
 
-core.setFailed('envA and envB are not equivalent!')
+echo "::error::Missing checklist"
+exit 1
